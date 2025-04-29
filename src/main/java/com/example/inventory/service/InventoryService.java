@@ -20,8 +20,11 @@ public class InventoryService {
         this.productRepository = productRepository;
     }
 
-    public boolean isProductExist(Integer id, String name) {
-        return productRepository.existsByIdAndName(id, name);
+    public Integer isProductExist(Integer id, String name) {
+        if(productRepository.existsByIdAndName(id, name))
+            return productRepository.findById(id).get().getQuantity();
+        else
+            return -1;
     }
 
     public Product reserveProduct(int id, int quantity) {

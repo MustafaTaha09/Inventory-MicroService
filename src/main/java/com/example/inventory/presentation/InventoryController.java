@@ -22,19 +22,21 @@ public class InventoryController {
     }
 
     @GetMapping("/productExist")
-    public ResponseEntity<Void> isProductExist(@RequestParam(name = "id") Integer id, @RequestParam(name = "ProductName") String name){
-        boolean result = inventoryService.isProductExist(id, name);
-        if (result)
-            return ResponseEntity.ok().build(); // 200
-        else
+    public ResponseEntity<Integer> isProductExist(@RequestParam(name = "id") Integer id, @RequestParam(name = "ProductName") String name){
+        Integer result = inventoryService.isProductExist(id, name);
+        if (result == -1)
             return ResponseEntity.notFound().build(); // 404
+        return ResponseEntity.ok().build(); // 200
 
     }
+
+
 
     @PostMapping("/reserveProduct")
     public ResponseEntity<Product> reserveProduct(@RequestParam(name = "productId") int id,@RequestParam(name = "productQuantity") int quantity){
         return ResponseEntity.ok(inventoryService.reserveProduct(id, quantity));
     }
+
 
 
 }
