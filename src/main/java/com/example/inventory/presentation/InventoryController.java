@@ -26,7 +26,7 @@ public class InventoryController {
         Integer result = inventoryService.isProductExist(id, name);
         if (result == -1)
             return ResponseEntity.notFound().build(); // 404
-        return ResponseEntity.ok().build(); // 200
+        return ResponseEntity.ok(result); // 200
 
     }
 
