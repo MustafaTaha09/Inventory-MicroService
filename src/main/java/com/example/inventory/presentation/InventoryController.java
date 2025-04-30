@@ -33,8 +33,11 @@ public class InventoryController {
 
 
     @PostMapping("/reserveProduct")
-    public ResponseEntity<Product> reserveProduct(@RequestParam(name = "productId") int id,@RequestParam(name = "productQuantity") int quantity){
-        return ResponseEntity.ok(inventoryService.reserveProduct(id, quantity));
+    public ResponseEntity<Boolean> reserveProduct(@RequestParam(name = "productId") int id,@RequestParam(name = "productQuantity") int quantity){
+        boolean result = inventoryService.reserveProduct(id, quantity);
+        if(result)
+           return ResponseEntity.ok().build(); // 200
+        return ResponseEntity.notFound().build(); // 404
     }
 
 

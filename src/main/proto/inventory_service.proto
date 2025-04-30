@@ -1,0 +1,44 @@
+// src/main/proto/inventory_service.proto
+
+syntax = "proto3";
+
+// Option for generated Java code
+option java_package = "com.example.grpc.inventory"; // Package for generated Java classes
+option java_multiple_files = true; // Generate each message/service in its own file
+
+package inventory; // Protobuf package name
+
+// Define the gRPC service interface
+service InventoryGrpcService {
+  // RPC method to check product existence and get quantity
+  rpc CheckProductExistence(ProductExistenceRequest) returns (ProductExistenceResponse);
+
+  // You could add other RPC methods here later, e.g., for reserving products
+  // rpc ReserveProduct(ReserveProductRequest) returns (ReserveProductResponse);
+}
+
+// Request message for checking product existence
+message ProductExistenceRequest {
+  int32 product_id = 1; // Use int32 for Java Integer/int
+  string product_name = 2;
+}
+
+// Response message for checking product existence
+message ProductExistenceResponse {
+  bool exists = 1; // Flag indicating if the product exists
+  int32 quantity = 2; // Current quantity if it exists (will be 0 or default if exists=false)
+}
+
+// Example messages if you were to add reservation later
+/*
+message ReserveProductRequest {
+  int32 product_id = 1;
+  int32 quantity_to_reserve = 2;
+}
+
+message ReserveProductResponse {
+  bool reservation_successful = 1;
+  int32 current_quantity_after = 2; // Quantity after successful reservation
+  string error_message = 3; // Optional error message if failed
+}
+*/

@@ -27,19 +27,24 @@ public class InventoryService {
             return -1;
     }
 
-    public Product reserveProduct(int id, int quantity) {
+    public Boolean reserveProduct(int id, int quantity) {
+        boolean flag = false;
         Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
 
-        if (product.getQuantity() - quantity >= 0)
+        if (product.getQuantity() - quantity >= 0){
             product.setQuantity(product.getQuantity() - quantity);
-        else
+            flag = true;
+        }
+
+        else {
             try {
                 throw new BadRequestException("Quantity ordered is more than stored");
             } catch (BadRequestException e) {
                 throw new RuntimeException(e);
             }
-
-        return productRepository.save(product);
+        }
+        productRepository.save(product);
+        return flag;
     }
 
 
