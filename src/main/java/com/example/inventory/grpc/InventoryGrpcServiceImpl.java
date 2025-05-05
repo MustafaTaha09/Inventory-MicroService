@@ -1,7 +1,9 @@
 package com.example.inventory.grpc; // Create a suitable package (e.g., grpc)
 
+import com.example.inventory.InventoryGrpcServiceGrpc;
+import com.example.inventory.ProductExistenceRequest;
 import com.example.inventory.service.InventoryService; // Your existing business logic service
-import com.example.grpc.inventory.*; // Import generated classes from proto (adjust package if needed)
+import com.example.inventory.*; // Import generated classes from proto (adjust package if needed)
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
